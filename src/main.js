@@ -2,7 +2,7 @@
 
 $(document).ready(function() {
   $('#geoLocation').click(function() {
-    let geo = $('#location').val();
+    let geo = $('#location').val().toUpperCase();
     $('#location').val("");
     console.log("The location is:" + geo);
 
@@ -22,9 +22,10 @@ $(document).ready(function() {
 
       let getElements = function(response) {
         console.log(response);
+        $('.showCity').append(`<h1>Your search results for ${geo}: </h1>`);
         response.forEach(function(place) {
-          $('.showCity').append(`<ul><h4>${geo}</h4><li> ${geo} is located in ${place.display_name} </li><li> This location is classified as a ${place.class}.</li><li> The latitude is ${place.lat}. </li><li> The longitude is ${place.lon}. </li></ul>`);
-          $('.showIcon').append(`<p>Hello<img src="${place.icon}"></></p>`);
+          $('.showCity').append(`<ul><li><h4>${place.display_name}</h4> </li><li> This location is classified as a ${place.class}.</li><li> The latitude is ${place.lat}. </li><li> The longitude is ${place.lon}. </li></ul>`);
+          // $('.showIcon').append(`<p>Hello<img src="${place.icon}"></></p>`);
         })
 
       }
