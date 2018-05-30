@@ -13,7 +13,11 @@ $(document).ready(function() {
       if (this.readyState === 4 && this.status === 200) {
         let response = JSON.parse(this.responseText);
         getElements(response);
+      } else if (this.readyState === 4 && this.status === 404) {
+        let response = JSON.parse(this.responseText);
+        getElements([]);
       }
+
     }
 
     request.open("GET", url, true);
@@ -21,7 +25,16 @@ $(document).ready(function() {
 
 
       let getElements = function(response) {
-        $('.showCity').text(`The  in ${geo} is ${response.class}`);
+        console.log(response);
+        if(response.length != 0) {
+
+        response.forEach(function(place) {
+          $('.showCity').append(`<li>The  in ${geo} is ${place.display_name}</li>`);
+
+        })
+      } else {
+        $('.showCity').append(`<li>NO places called ${geo} found.</li>`);
+      }
         // $('.showType').text(`The neighborhood is a ${response.class} type.`);
         // $('.showName').text(`This address is ${response.display_name}.`);
         // $('.showLat').text(`The latitude is ${response.main.lat}.`);
