@@ -13,11 +13,7 @@ $(document).ready(function() {
       if (this.readyState === 4 && this.status === 200) {
         let response = JSON.parse(this.responseText);
         getElements(response);
-      } else if (this.readyState === 4 && this.status === 404) {
-        let response = JSON.parse(this.responseText);
-        getElements([]);
       }
-
     }
 
     request.open("GET", url, true);
@@ -26,20 +22,10 @@ $(document).ready(function() {
 
       let getElements = function(response) {
         console.log(response);
-        if(response.length != 0) {
-
         response.forEach(function(place) {
-          $('.showCity').append(`<li>The  in ${geo} is ${place.display_name}</li>`);
-
+          $('.showCity').append(`<ul><h4>${geo}</h4><li> ${geo} is located in ${place.display_name} </li><li> This location is classified as a ${place.class}.</li><li> The latitude is ${place.lat}. </li><li> The longitude is ${place.lon}. </li></ul>`);
+          $('.showIcon').append(`<p>Hello<img src="${place.icon}"></></p>`);
         })
-      } else {
-        $('.showCity').append(`<li>NO places called ${geo} found.</li>`);
-      }
-        // $('.showType').text(`The neighborhood is a ${response.class} type.`);
-        // $('.showName').text(`This address is ${response.display_name}.`);
-        // $('.showLat').text(`The latitude is ${response.main.lat}.`);
-        // $('.showLon').text(`The longitude is ${response.main.lon}.`);
-        // $('.showIcon').text(`${response.main.icon}`);
 
       }
   });
