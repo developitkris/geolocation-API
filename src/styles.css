@@ -1,5 +1,3 @@
-
-
 #location{
   width: 30%;
   height: auto;
@@ -12,4 +10,8 @@ body{
   background-position: center center;
   background-color: black;
   color: beige;
+}
+
+#mapid {
+  height: 780px;
 }

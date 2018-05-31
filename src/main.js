@@ -5,12 +5,19 @@ import './styles.css';
 $(document).ready(function() {
   $('#geoLocation').click(function() {
     let geo = $('#location').val().toUpperCase();
+    var mymap = L.map('mapid').setView([51.505, -0.09], 13);
     $('#location').val("");
     console.log("The location is:" + geo);
 
     let request = new XMLHttpRequest();
-    //let url = `https://us1.locationiq.org/v1/search.php?key=YOUR_API_KEY&q=SEARCH_STRING&format=json${city}&appid=${process.env.API_KEY}`;
+
     let url = `https://us1.locationiq.org/v1/search.php?key=${process.env.API_KEY}&q=${geo}&format=json`
+      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiamltbS02MTkiLCJhIjoiY2podXJwMXdwMHJscDN2cnZsdGN5eHU1cSJ9.rZ6hkyLuZ3Nrl6uc0oPf1w', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox.streets',
+      accessToken: 'your.mapbox.access.token'
+    }).addTo(mymap);
     request.onreadystatechange = function() {
       if (this.readyState === 4 && this.status === 200) {
         let response = JSON.parse(this.responseText);
