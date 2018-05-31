@@ -38,6 +38,7 @@ $(document).ready(function() {
         $('.showCity').append(`<h1>Your search results for ${geo}: </h1>`);
         response.forEach(function(location) {
           var marker = L.marker([location.lat, location.lon]).addTo(mymap);
+          marker.bindPopup("You clicked on: " + location.display_name).openPopup();
         })
         mymap.panTo(new L.LatLng(response[0].lat, response[0].lon));
         response.forEach(function(place) {
