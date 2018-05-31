@@ -1,0 +1,15 @@
+
+
+#location{
+  width: 30%;
+  height: auto;
+}
+
+body{
+  background-image: url(https://cdn.pixabay.com/photo/2014/09/07/09/49/earth-437670_960_720.jpg);
+  background-size:     150vh;                      /* <------ */
+  background-repeat:   no-repeat;
+  background-position: center center;
+  background-color: black;
+  color: beige;
+}
