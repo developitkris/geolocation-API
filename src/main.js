@@ -5,7 +5,7 @@ import './styles.css';
 $(document).ready(function() {
   $('#geoLocation').click(function() {
     let geo = $('#location').val().toUpperCase();
-    var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+    var mymap = L.map('mapid').setView([47.606, -122.3], 13);
     $('#location').val("");
     console.log("The location is:" + geo);
 
@@ -24,7 +24,7 @@ $(document).ready(function() {
         getElements(response);
       }
     }
-
+    var marker = L.marker([47.606, -122.332]).addTo(mymap);
     request.open("GET", url, true);
     request.send();
 
@@ -33,7 +33,9 @@ $(document).ready(function() {
         console.log(response);
         $('.showCity').append(`<h1>Your search results for ${geo}: </h1>`);
         response.forEach(function(place) {
-          $('.showCity').append(`<ul><li><h4>${place.display_name}</h4> </li><li> This location is classified as a ${place.class}.</li><li> The latitude is ${place.lat}. </li><li> The longitude is ${place.lon}. </li></ul>`);
+          $('.showCity').append(`<ul><li><h4>${place.display_name}</h4> </li><li> This location is classified as a ${place.class}.</li><li>
+             The latitude is ${place.lat}. </li><li> The longitude is ${place.lon}. </li></ul>`);
+
           // $('.showIcon').append(`<p>Hello<img src="${place.icon}"></></p>`);
         })
 
