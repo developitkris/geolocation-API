@@ -49,11 +49,13 @@ $(document).ready(function() {
             <li>The latitude is ${place.lat}. </li>
             <li> The longitude is ${place.lon}. </li>
           </ul>
-          <button type="button" class="btn btn-primary eachLocation">Show On Map</button>`);
+          <button type="button" class="btn btn-primary mapMover">Show On Map</button>`);
           $('.showCity').append(marker);
           // $('.showIcon').append(`<p>Hello<img src="${place.icon}"></></p>`);
+          $('.mapMover').last().click(function(){
+            mymap.panTo(new L.LatLng(place.lat, place.lon));
+          });
         })
-
       }
   });
 });
