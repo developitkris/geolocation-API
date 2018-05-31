@@ -5,7 +5,7 @@ import './styles.css';
 $(document).ready(function() {
   $('#geoLocation').click(function() {
     let geo = $('#location').val().toUpperCase();
-    var mymap = L.map('mapid').setView([47.606, -122.3], 13);
+    var mymap = L.map('mapid').setView([0,0], 13);
     $('#location').val("");
     console.log("The location is:" + geo);
 
@@ -22,9 +22,13 @@ $(document).ready(function() {
       if (this.readyState === 4 && this.status === 200) {
         let response = JSON.parse(this.responseText);
         getElements(response);
+        console.log("The Response is:" + response);
       }
     }
-    var marker = L.marker([47.606, -122.332]).addTo(mymap);
+
+    // var marker = new MapBox
+
+    var marker;
     request.open("GET", url, true);
     request.send();
 
@@ -32,10 +36,20 @@ $(document).ready(function() {
       let getElements = function(response) {
         console.log(response);
         $('.showCity').append(`<h1>Your search results for ${geo}: </h1>`);
+        response.forEach(function(location) {
+          var marker = L.marker([location.lat, location.lon]).addTo(mymap);
+        })
+        mymap.panTo(new L.LatLng(response[0].lat, response[0].lon));
         response.forEach(function(place) {
-          $('.showCity').append(`<ul><li><h4>${place.display_name}</h4> </li><li> This location is classified as a ${place.class}.</li><li>
-             The latitude is ${place.lat}. </li><li> The longitude is ${place.lon}. </li></ul>`);
-
+          $('.showCity').append(`
+          <ul>
+            <li><h4>${place.display_name}</h4></li>
+            <li> This location is classified as a ${place.class}.</li>
+            <li>The latitude is ${place.lat}. </li>
+            <li> The longitude is ${place.lon}. </li>
+          </ul>
+          <button type="button" class="btn btn-primary eachLocation">Show On Map</button>`);
+          $('.showCity').append(marker);
           // $('.showIcon').append(`<p>Hello<img src="${place.icon}"></></p>`);
         })
 
